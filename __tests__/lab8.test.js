@@ -126,16 +126,12 @@ describe('Basic user flow for Website', () => {
     // Select all <product-item> elements
     const productItems = await page.$$('product-item');  
     // Iterate over each <product-item> element
-    for (let i = 1; i < productItems.length; i++){
+    for (let i = 0; i < productItems.length; i++){
       const temp = await productItems[i];
       const shadowRoot = await temp.getProperty('shadowRoot');
       const button = await shadowRoot.$("button");
       await button.click()
     }
-
-    // Check to see if the innerText of #cart-count is 20
-    // const cartCount = await page.$eval("#cart-count", (element)=> element.innterText);
-    // return cartCount == "20"
     const cartCount = await page.$("#cart-count")
     const cartInnerText = await cartCount.getProperty('innerText')
     const cartJson = await cartInnerText.jsonValue();
